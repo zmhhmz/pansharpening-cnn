@@ -74,11 +74,11 @@ def PNN_test (I_MS_LR,I_PAN,inputImg, param,net,path,mode,epochs=0):
         I_in = np.vstack((I_in, NDxI)).astype('single')
     else:
         sys.exit('Configuration not supported')
-    print I_in.shape 
+    print(I_in.shape )
 
     I_in_residual=np.expand_dims(I_in,axis=0)
     I_in_residual=I_in_residual[:,:I_MS.shape[0],:,:]
-    I_in = np.pad(I_in, ((0,0),(param['padSize']/2,param['padSize']/2),(param['padSize']/2,param['padSize']/2)),mode='edge')
+    I_in = np.pad(I_in, ((0,0),(param['padSize']//2,param['padSize']//2),(param['padSize']//2,param['padSize']//2)),mode='edge')
     I_in = np.expand_dims(I_in,axis=0)
     
     #Pansharpening

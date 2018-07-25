@@ -16,7 +16,7 @@ class Network:
          
         lay1 = self.x
         last = False
-        for i in xrange(len(self.layers)):
+        for i in range(len(self.layers)):
             if i==len(self.layers) - 1:
                  last=True
             lay = self.layers[i]

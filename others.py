@@ -43,7 +43,8 @@ def parser_xml(filename):
         
 def gaussian2d (N, std):
     
-    t=np.arange(-(N-1)/2,(N+2)/2)
+    #t=np.arange(-(N-1)/2,(N+2)/2)
+    t=np.arange(-(N-1)/2,(N+1)/2)
     t1,t2=np.meshgrid(t,t)
     std=np.double(std)
     w = np.exp(-0.5*(t1/std)**2)*np.exp(-0.5*(t2/std)**2) 
@@ -51,7 +52,8 @@ def gaussian2d (N, std):
     
 def kaiser2d (N, beta):
     
-    t=np.arange(-(N-1)/2,(N+2)/2)/np.double(N-1)
+    #t=np.arange(-(N-1)/2,(N+2)/2)/np.double(N-1)
+    t=np.arange(-(N-1)/2,(N+1)/2)/np.double(N-1)
     t1,t2=np.meshgrid(t,t)
     t12=np.sqrt(t1*t1+t2*t2)
     w1=np.kaiser(N,beta)
@@ -164,8 +166,8 @@ def saveBN_layer(layer,model):
 
 
 def interp23(image, ratio):
-    if (2**round(np.log2(ratio)) != ratio):
-        print 'Error: only resize factors of power 2'
+    if (2**np.log2(ratio).round() != ratio):
+        print('Error: only resize factors of power 2')
         return
 
     b,r,c = image.shape

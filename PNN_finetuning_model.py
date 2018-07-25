@@ -20,7 +20,7 @@ class Network(object):
         self.y = T.ftensor4("y")
         lay1 = self.x
         last = False
-        for i in xrange(len(self.layers)):
+        for i in range(len(self.layers)):
             if i==len(self.layers) - 1:
                  last=True
             lay = self.layers[i]
@@ -33,19 +33,19 @@ class Network(object):
         blk=0
         for i in self.layers:
             blk=blk+i.w.eval().shape[2]-1
-        blk=blk/2
+        blk=blk//2
         
         
         if costo=='L1':
             cost = T.sum(T.mean(abs(self.output - self.y[:,:,blk:-blk,blk:-blk]),axis=0))
-            print 'L1'
+            print('L1')
         elif costo=='L2':
             cost = T.sum(T.mean((self.output - self.y[:,:,blk:-blk,blk:-blk])**2, axis=0))/2 
             if regol==True:
                 l2_norm_squared = sum([(layer.w**2).sum() for layer in self.layers])
                 cost = cost + 0.0001*l2_norm_squared        
         else:
-            print 'Error: cost function must be L1 or L2'
+            print('Error: cost function must be L1 or L2')
             
         cost2 = T.mean((self.output - self.y[:,:,blk:-blk,blk:-blk])**2)   
         grads = T.grad(cost, self.params)
@@ -53,18 +53,18 @@ class Network(object):
         #sgd with momentum
         updates=[]
         a=zip(self.params,grads)
-        print len(a)
+        print(len(list(a)))
         k=0
         eta=lr
         for param, grad in a:
-            print k
+            print(k)
             if k>=len(a)-2:
                 eta=lr/10
-                print eta
+                print(eta)
             else:
                 eta=lr
-                print eta
-            print eta
+                print(eta)
+            print(eta)
             prev = theano.shared(param.get_value()*0.,borrow=True)
             step = 0.9*prev - eta*grad
             updates.append((prev, step))
@@ -102,7 +102,7 @@ class Network(object):
         #text file to save notes
         info=open(folder+'/PNN_model.txt','a')
         info.write('\n')
-        for epoch in xrange(epochs):
+        for epoch in range(epochs):
             
             cost_1[epoch], cost_2[epoch]=valid_loss() 
             train() 

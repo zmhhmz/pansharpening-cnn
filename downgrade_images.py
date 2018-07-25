@@ -44,7 +44,7 @@ def downgrade_images(I_MS,I_PAN,ratio,sensor):
     if flag_resize_new == 1:
         I_MS_LP = np.zeros((I_MS.shape[0],int(np.round(I_MS.shape[1]/ratio)+ratio),int(np.round(I_MS.shape[2]/ratio)+ratio)))
             
-        for idim in xrange(I_MS.shape[0]):
+        for idim in range(I_MS.shape[0]):
             imslp_pad=np.pad(I_MS[idim,:,:],int(2*ratio),'symmetric')
             I_MS_LP[idim,:,:]=misc.imresize(imslp_pad,1/ratio,'bicubic',mode='F')
             
@@ -60,7 +60,7 @@ def downgrade_images(I_MS,I_PAN,ratio,sensor):
         I_MS_LP=np.zeros(I_MS.shape)
         fcut=1/ratio
         
-        for j in xrange(I_MS.shape[0]):
+        for j in range(I_MS.shape[0]):
             #fir filter with window method
             alpha = np.sqrt(((N-1)*(fcut/2))**2/(-2*np.log(GNyq[j])))
             H=gaussian2d(N,alpha)

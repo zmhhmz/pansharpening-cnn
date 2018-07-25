@@ -33,7 +33,7 @@ def input_preparation(I_MS_LR,I_PAN,param):
         I_MS = interp23(I_MS_LR, param['ratio'])
         if len(NDxI_LR)!=0:
             NDxI = interp23(NDxI_LR, param['ratio'])
-            print 'ok'
+            print('ok')
     else:
         sys.exit('interpolation not supported')
      

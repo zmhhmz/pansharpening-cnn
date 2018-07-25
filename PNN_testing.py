@@ -7,6 +7,7 @@ All rights reserved. This work should only be used for nonprofit purposes.
 import os
 import numpy as np
 import argparse
+import importlib as imp
 
 parser = argparse.ArgumentParser( 
         description = 'Target-Adaptive CNN Based Pansharpening')
@@ -30,10 +31,14 @@ from PNN_test import PNN_test
 from others import parser_xml, export2
 
 model=parser_xml('config_testing_'+sensor+'.xml')
-execfile('copy_xml_fields_testing.py')
+#imp.reload('copy_xml_fields_testing.py')
+#exec(open('./copy_xml_fields_testing.py').read())
+with open("copy_xml_fields_testing.py") as f:
+    code = compile(f.read(), "copy_xml_fields_testing.py", 'exec')
+    exec(code)
 
 layer=[]
-for i in xrange(0,len(PNN_model['layers']),2):
+for i in range(0,len(PNN_model['layers']),2):
     layer.append(ConvLayer(PNN_model['layers'][i], PNN_model['layers'][i+1]))
 net=Network(layer)
 
