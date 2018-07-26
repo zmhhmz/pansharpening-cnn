@@ -1,7 +1,8 @@
 # Adjusted Version (Python3)
-To run PNN_testing.py with gpu:
->> THEANO_FLAGS=device=cuda0 python3 PNN_testing.py -g True
-
+The command to run PNN_testing.py with gpu is:
+```
+THEANO_FLAGS=device=cuda0 python3 PNN_testing.py -g True
+```
 
 
 # pansharpening-cnn
