@@ -21,7 +21,8 @@ parser.add_argument('-s', '--sensor', type=str, default='GE1',
 config, _ = parser.parse_known_args()
 sensor = config.sensor                        
 if (config.gpu):
-	os.environ["THEANO_FLAGS"]='device=gpu0,floatX=float32,init_gpu_device=gpu0'
+	#os.environ["THEANO_FLAGS"]='device=cuda0,floatX=float32,init_gpu_device=gpu0'
+	os.environ["THEANO_FLAGS"]='floatX=float32,init_gpu_device=cuda0'
 else:
 	os.environ["THEANO_FLAGS"] = "floatX=float32"
 
@@ -68,10 +69,10 @@ th_PAN = image_quantile(I_PAN, np.array([0.01, 0.99]))
 PAN = image_stretch(np.squeeze(I_PAN),np.squeeze(th_PAN))
 plt.imshow( image_stretch(np.squeeze(I_PAN),np.squeeze(th_PAN)),cmap='gray',clim=[0,1])
 plt.title('PANCHROMATIC'), plt.axis('off')
-    
+
 RGB_indexes = np.array(inputImg['RGB_indexes'])
 RGB_indexes = RGB_indexes - 1
-    
+
 plt.subplot(132)
 th_MSrgb = image_quantile(np.squeeze(I_MS_LR[RGB_indexes,:,:]), np.array([0.01, 0.99]));
 d=image_stretch(np.squeeze(I_MS_LR[RGB_indexes,:,:]),th_MSrgb)
