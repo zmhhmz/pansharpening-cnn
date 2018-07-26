@@ -1,5 +1,6 @@
 # Adjusted Version (Python3)
-RUN PNN_testing.py with gpu:  THEANO_FLAGS=device=cuda0 python3 PNN_testing.py -g True
+To run PNN_testing.py with gpu:
+>> THEANO_FLAGS=device=cuda0 python3 PNN_testing.py -g True
 
 
 
