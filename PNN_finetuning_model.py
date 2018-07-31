@@ -43,7 +43,7 @@ class Network(object):
             cost = T.sum(T.mean((self.output - self.y[:,:,blk:-blk,blk:-blk])**2, axis=0))/2 
             if regol==True:
                 l2_norm_squared = sum([(layer.w**2).sum() for layer in self.layers])
-                cost = cost + 0.0001*l2_norm_squared        
+                cost = cost + 0.0001*l2_norm_squared
         else:
             print('Error: cost function must be L1 or L2')
             
@@ -52,23 +52,24 @@ class Network(object):
 
         #sgd with momentum
         updates=[]
-        a=zip(self.params,grads)
-        print(len(list(a)))
+        #a=zip(self.params,grads)
+        #print(len(self.params))
         k=0
         eta=lr
-        for param, grad in a:
-            print(k)
-            if k>=len(a)-2:
+        for param, grad in zip(self.params,grads):
+            #print(k)
+            if k>=len(self.params)-2:
                 eta=lr/10
-                print(eta)
+                #print(eta)
             else:
                 eta=lr
-                print(eta)
-            print(eta)
-            prev = theano.shared(param.get_value()*0.,borrow=True)
-            step = 0.9*prev - eta*grad
-            updates.append((prev, step))
-            updates.append((param, param + step))
+                #print(eta)
+            #print(eta)
+            param_update = theano.shared(param.get_value()*0.,borrow=True)
+            #step = 0.9*prev - eta*grad
+            updates.append((param, param - eta*param_update))
+            #updates.append((param, param + step))
+            updates.append((param_update,0.9*param_update+0.1*grad))
             k+=1
             
         #sgd without momentum        
